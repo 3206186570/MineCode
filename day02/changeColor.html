@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+        #box1.clicked{
+            background-color: red;
+        }
+        #box2{
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            background-color: #fff;
+        }
+        #box2.clicking{
+            background-color: pink;
+        }
+        #box3{
+            width: 120px;
+            height: 120px;
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+        #box3.clicks{
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="box1">这是box1的盒子</div>
+        <div id="box2">这是box2的盒子</div>
+        <div id="box3">这是box3的盒子</div>
+    </div>
+</body>
+<script>
+    // 1.使用css中的contains判断是否有该样式,添加和移除样式
+        let box1 = document.getElementById('box1')
+        box1.addEventListener('click',function(){
+            if(box1.classList.contains('clicked')){
+                box1.classList.remove('clicked')
+            }else{
+                box1.classList.add('clicked')
+            }
+        })
+    //2.使用css原生的切换方法toggle 
+        let box2 = document.getElementById('box2')
+        box2.addEventListener('click',function(){
+            box2.classList.toggle('clicking')
+        })
+    //3.设置一个独立标识,判断该标识是否存在,进行添加和移除样式
+        let box3 = document.getElementById('box3')
+        let isChangeColor = false
+        box3.addEventListener('click',function(){
+            if(!isChangeColor){
+                box3.classList.add('clicks')
+                isChangeColor = true
+            }else{
+                box3.classList.remove('clicks')
+                isChangeColor = false
+            }
+        })
+</script>
+</html>
