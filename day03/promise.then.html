@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //第三遍
+        let p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('这是返回成功的内容')
+            }, 1000);
+        })
+        let result = p.then(res=>{
+            console.log(res,'p.res');
+            return res
+        })
+        result.then(res=>{
+            console.log(res,'result.res');
+            return res
+        }).then(res1=>{
+            console.log(res1,'res1');
+            return res1 + `2222`
+        }).then(res2=>{
+            console.log(res2,'res2');
+        })
+    // //第二遍
+    // let p = new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve('成功了')
+    //     },1000);
+    // })
+    // let result = p.then(res=>{
+    //     console.log(res,'result.res');
+    //     return res
+    // })
+    // result.then(res=>{
+    //     console.log(res,'res');
+    //     return res + `这已经是我的全部了`
+    // }).then(res1=>{
+    //     console.log(res1,'res1');
+    //     return res1 + `这是真的`
+    // }).then(res2=>{
+    //     console.log(res2,'res2');
+    // })
+     // //第一遍
+    // let p = new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve('成功的参数')
+    //         //reject('失败的结果')
+    //     }, 1000);
+    // })
+    // let result = p.then(res=>{
+    //     console.log(res);
+    //     return res
+    // })
+    // result.then(res=>{
+    //     console.log(res);
+    //     return res
+    // }).then(res1=>{
+    //     return res1 + `这是一个res1`
+    // }).then(res2=>{
+    //     console.log(res2,'res2');
+    // })
+</script>
+</html>
