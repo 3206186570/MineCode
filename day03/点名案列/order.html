@@ -111,9 +111,9 @@
                 </div>
                 <ul>
                     <li id="onlyOne">单人点名</li>
-                    <li>双人点名</li>
-                    <li>男生点名</li>
-                    <li>女生点名</li>
+                    <li id="doubelorder">双人点名</li>
+                    <li id="nan">男生点名</li>
+                    <li id="nv">女生点名</li>
                 </ul>
             </div>
         </div>
@@ -198,6 +198,62 @@
             // isScrol = !isScrol
         
     })
+    //双人点名
+    let doubelorder = document.getElementById('doubelorder')
+    function doubelNameTwo(){
+        let index =  Math.floor(Math.random() * orderList.length)
+        let index1 =  Math.floor(Math.random() * orderList.length)
+        if(index==index1){
+            index1 = Math.floor(Math.random() * orderList.length)
+        }
+        orderName.textContent = `${orderList[index].name} ${orderList[index1].name} ` 
+    }
+    let time1 = null
+    doubelorder.addEventListener('click', function () {
+           time1 = setInterval(doubelNameTwo, 100)
+           setTimeout(() => {
+               clearInterval(time1)
+       }, 3000)
+})
+
+//男生
+let nanList = []
+let nan = document.getElementById('nan')
+orderList.forEach(function(item){
+    if(item.sex=='男'){
+        nanList.push(item)
+    }
+})
+function nanOrder() {
+        let index = Math.floor(Math.random() * nanList.length)
+        orderName.textContent = nanList[index].name
+    }
+    let time2 = null
+    nan.addEventListener('click', function () {
+           time2 = setInterval(nanOrder, 100)
+           setTimeout(() => {
+               clearInterval(time2)
+       }, 3000)
+})
+    //女生
+let nv = document.getElementById('nv')
+let nvList = []
+orderList.forEach(function(item){
+    if(item.sex=='女'){
+        nvList.push(item)
+    }
+})
+function nvorder() {
+        let index = Math.floor(Math.random() * nvList.length)
+        orderName.textContent = nvList[index].name
+    }
+    let time3 = null
+    nv.addEventListener('click', function () {
+           time3 = setInterval(nvorder, 100)
+           setTimeout(() => {
+               clearInterval(time3)
+       }, 3000)
+})
 </script>
 
 </html>
