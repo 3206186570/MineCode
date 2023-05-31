@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            background-image: url(./xing.jpg);
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .times {
+            text-align: right;
+            margin: 30px 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .left {
+            width: 40%;
+        }
+
+        .right {
+            width: 40%;
+        }
+
+        .content {
+            margin: 120px 0;
+            display: flex;
+        }
+
+        #orderName {
+            font-size: 20px;
+            background: -webkit-linear-gradient(#7ec050, #0cc7fd);
+        }
+
+        ul {
+            display: flex;
+        }
+
+        li {
+            margin: 0 10px;
+            background: #7ec050;
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 15px;
+        }
+
+        #getName {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #getName p {
+            flex-shrink: 0;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h3>H2110C点名表</h3>
+        <div class="times">
+            时间：
+            <p class="time" id="getMoveTime"></p>
+        </div>
+        <div class="box">
+            <div class="left">
+                <div id="getName"></div>
+            </div>
+            <div class="right">
+                <div class="content">
+                    天选之人：
+                    <p id="orderName"></p>
+                </div>
+                <ul>
+                    <li id="onlyOne">单人点名</li>
+                    <li>双人点名</li>
+                    <li>男生点名</li>
+                    <li>女生点名</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let orderList = [
+        { name: '王梦瑶', sex: '女' },
+        { name: '吴清', sex: '男' },
+        { name: '索占行', sex: '女' },
+        { name: '马萧克', sex: '女' },
+        { name: '舒克', sex: '男' },
+        { name: '林淼妙', sex: '女' },
+        { name: '钱三一', sex: '男' },
+        { name: '琳琳', sex: '女' },
+        { name: '贾明', sex: '男' },
+        { name: '王晓燕', sex: '女' },
+        { name: '夏冬青', sex: '男' },
+        { name: '时光', sex: '男' },
+        { name: '倪好', sex: '女' },
+        { name: '家琪', sex: '女' },
+        { name: '周瑜', sex: '男' },
+        { name: '小乔', sex: '女' },
+        { name: '闫云云', sex: '女' },
+        { name: '闫飞', sex: '男' },
+        { name: '李艺彤', sex: '女' },
+        { name: '张美美', sex: '女' },
+    ]
+
+    let getName = document.getElementById('getName')
+    let orderarr = orderList.map(function (item) {
+        let p = document.createElement('p')
+        p.textContent = item.name
+        return p
+    })
+    orderarr.forEach(function (item) {
+        getName.appendChild(item)
+    })
+    //获取时间的dom元素
+    let moveTime = document.getElementById('getMoveTime')
+
+    function dataTime(value) {
+        let year = value.getFullYear().toString().padStart(4, '0')
+        let month = (value.getMonth() + 1).toString().padStart(2, '0')
+        let dates = value.getDate().toString().padStart(2, '0')
+        let hour = value.getHours().toString().padStart(2, '0')
+        let minutes = value.getMinutes().toString().padStart(2, '0')
+        let seconds = value.getSeconds().toString().padStart(2, '0')
+        return year + '-' + month + '-' + dates + '  ' + hour + ':' + minutes + ':' + seconds
+    }
+    function dataTimes() {
+        var nowTime = new Date()
+        getMoveTime.textContent = dataTime(nowTime)
+    }
+    setInterval(() => {
+        dataTimes()
+    }, 1000)
+
+    //单人点名
+    let onlyName = document.getElementById('onlyOne')
+    let orderName = document.getElementById('orderName')
+    //随机产生一个名字
+    function getRandomName() {
+        let index = Math.floor(Math.random() * orderList.length)
+        orderName.textContent = orderList[index].name
+    }
+    //定义一个状态
+    // let isScrol = false
+    let timer = null
+    onlyName.addEventListener('click', function () {
+       
+            // if (isScrol) {
+            //     clearInterval(timer)
+            //     //  onlyName.textContent = '单人点名'
+            // } else {
+                timer = setInterval(getRandomName, 100)
+                setTimeout(() => {
+                    clearInterval(timer)
+            }, 3000)
+                // onlyName.textContent = '暂停'
+            // }
+            // isScrol = !isScrol
+        
+    })
+</script>
+
+</html>

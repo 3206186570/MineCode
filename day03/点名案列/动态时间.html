@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>动态时间</title>
+  </head>
+  <body>
+    <h1>动态时间</h1>
+    <p id="time"></p>
+    <script>
+        // 获取页面元素
+var timeDisplay = document.getElementById("time");
+
+// 定义用于格式化日期的函数
+function formatDatetime(datetime) {
+  var year = datetime.getFullYear().toString().padStart(4, "0");
+  var month = (datetime.getMonth() + 1).toString().padStart(2, "0");
+  var day = datetime.getDate().toString().padStart(2, "0");
+  var hour = datetime.getHours().toString().padStart(2, "0");
+  var minute = datetime.getMinutes().toString().padStart(2, "0");
+  var second = datetime.getSeconds().toString().padStart(2, "0");
+
+  return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+}
+
+// 定义更新时间的函数
+function updateTime() {
+  var now = new Date();
+  timeDisplay.textContent = formatDatetime(now);
+}
+
+// 每秒钟更新时间
+setInterval(updateTime, 1000);
+    </script>
+  </body>
+</html>
