@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+
+
+</body>
+<script>
+ //Array.from()
+//  let arrayLike = {
+//     '0': 'a',
+//     '1': 'b',
+//     '2': 'c',
+//     length: 3
+// };
+// //es5方法
+// let arr1 = [].slice.call(arrayLike)
+// console.log(arr1);
+// let arr2 = Array.from(arrayLike)
+// console.log(arr2);
+
+let Array = [1,2,3,[5,7,[4,6]]]
+console.log(Array.flat());
+//flat特点只能将二维转化
+console.log(Array.flatMap((x=>[x,x*2])));
+//? 也只能展开一组数组
+
+at() //实列方法
+const sentence = 'this is a people'
+sentence.at(0) //t
+sentence.at(-1) //e
+//用之前的写法访问最后一个需要用arr[arr.length-1] //不能直接写成arr[-1]
+// 这个方法group() 可以将数组进行分组 
+let list1 = [1,2,3,4,5]
+list1.group((num,index,list1)=>{
+    return num % 2 === 0 ?'even':'odd'
+})
+//group()与groupToMap() 用法一致，唯一不同的是返回值，groupToMap返回的不是对象
+//而是一个map结构
+
+</script>
+</html>

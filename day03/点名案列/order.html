@@ -60,7 +60,10 @@
 
         #orderName {
             font-size: 20px;
-            background: -webkit-linear-gradient(#7ec050, #0cc7fd);
+            background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         ul {
@@ -120,38 +123,6 @@
     </div>
 </body>
 <script>
-    let orderList = [
-        { name: '王梦瑶', sex: '女' },
-        { name: '吴清', sex: '男' },
-        { name: '索占行', sex: '女' },
-        { name: '马萧克', sex: '女' },
-        { name: '舒克', sex: '男' },
-        { name: '林淼妙', sex: '女' },
-        { name: '钱三一', sex: '男' },
-        { name: '琳琳', sex: '女' },
-        { name: '贾明', sex: '男' },
-        { name: '王晓燕', sex: '女' },
-        { name: '夏冬青', sex: '男' },
-        { name: '时光', sex: '男' },
-        { name: '倪好', sex: '女' },
-        { name: '家琪', sex: '女' },
-        { name: '周瑜', sex: '男' },
-        { name: '小乔', sex: '女' },
-        { name: '闫云云', sex: '女' },
-        { name: '闫飞', sex: '男' },
-        { name: '李艺彤', sex: '女' },
-        { name: '张美美', sex: '女' },
-    ]
-
-    let getName = document.getElementById('getName')
-    let orderarr = orderList.map(function (item) {
-        let p = document.createElement('p')
-        p.textContent = item.name
-        return p
-    })
-    orderarr.forEach(function (item) {
-        getName.appendChild(item)
-    })
     //获取时间的dom元素
     let moveTime = document.getElementById('getMoveTime')
 
@@ -172,88 +143,207 @@
         dataTimes()
     }, 1000)
 
+
+
+
+    //名单
+    let finishData = []
+    let orderList = [
+        { name: '李林桂', sex: '男' },
+        { name: '雷蕾', sex: '女' },
+        { name: '高甜媛', sex: '女' },
+        { name: '王蕊雯', sex: '女' },
+        { name: '于勤元', sex: '男' },
+        { name: '闫冬', sex: '男' },
+        { name: '周韬玮', sex: '男' },
+        { name: '霍利鹏', sex: '男' },
+        { name: '皇甫幼旺', sex: '男' },
+        { name: '王冉冉', sex: '女' },
+        { name: '梁婧雯', sex: '女' },
+        { name: '闫丽娜', sex: '女' },
+        { name: '尚校帆', sex: '男' },
+        { name: '余永涛', sex: '男' },
+        { name: '王炳兆', sex: '男' },
+        { name: '曹梦楠', sex: '男' },
+        { name: '井晓智', sex: '男' },
+        { name: '王晓行', sex: '男' },
+        { name: '张家恺', sex: '男' },
+        { name: '阿仕杰', sex: '男' },
+        { name: '赵泉', sex: '男' },
+        { name: '许博雅', sex: '男' },
+        { name: '袁玉博', sex: '男' },
+        { name: '吴国涛', sex: '男' },
+        { name: '岳辉', sex: '男' },
+        { name: '郭慧敏', sex: '女' },
+        { name: '李诗筠', sex: '女' },
+
+    ]
+    //随机名单名字的颜色
+    function getGradient() {
+        let color1 = getRandomColor()
+        let color2 = getRandomColor()
+        let color3 = getRandomColor()
+        return `linear-gradient(to right, ${color1} , ${color2} ,${color3})`
+    }
+    let getName = document.getElementById('getName')
+    function getDate() {
+        setInterval(() => {
+            getName.style.backgroundImage = getGradient()
+            getName.style.webkitBackgroundClip = "text"
+            getName.style.backgroundClip = "text"
+            getName.style.color = "transparent"
+        }, 200);
+    }
+    function getRandomColor() {
+        let r = Math.floor(Math.random() * 256)
+        let g = Math.floor(Math.random() * 256)
+        let b = Math.floor(Math.random() * 256)
+        return `rgb(${r},${g},${b})`
+    }
+
+    //创建一个p节点
+    let orderarr = orderList.map(function (item) {
+        let p = document.createElement('p')
+        p.style.backgroundImage = getGradient()
+        p.style.webkitBackgroundClip = "text"
+        p.style.backgroundClip = "text"
+        p.style.color = "transparent"
+        p.textContent = item.name
+        return p
+    })
+    orderarr.forEach(function (item) {
+        getName.appendChild(item)
+    })
+
+
+
+
     //单人点名
+    //获取dom元素
     let onlyName = document.getElementById('onlyOne')
     let orderName = document.getElementById('orderName')
     //随机产生一个名字
+    let index = null
     function getRandomName() {
-        let index = Math.floor(Math.random() * orderList.length)
+        index = Math.floor(Math.random() * orderList.length)
         orderName.textContent = orderList[index].name
     }
     //定义一个状态
-    // let isScrol = false
+    let isScrol = false
     let timer = null
     onlyName.addEventListener('click', function () {
-       
-            // if (isScrol) {
-            //     clearInterval(timer)
-            //     //  onlyName.textContent = '单人点名'
-            // } else {
-                timer = setInterval(getRandomName, 100)
-                setTimeout(() => {
-                    clearInterval(timer)
-            }, 3000)
-                // onlyName.textContent = '暂停'
-            // }
-            // isScrol = !isScrol
-        
+        if (isScrol) {
+            clearInterval(timer)
+            onlyName.textContent = '单人点名'
+            if (orderList.length === 0) {
+                orderList = finishData
+            } else {
+                let info = orderList[index]
+                if (info == undefined) return
+                finishData.unshift(info)
+                console.log(finishData,'finish');
+                orderList.splice(index, 1)
+                console.log(orderList,'orderList');
+            }
+        } else {
+            getDate()
+            timer = setInterval(getRandomName, 100)
+            onlyName.textContent = '暂停'
+        }
+        isScrol = !isScrol
     })
+
+
+
+
+
+
     //双人点名
     let doubelorder = document.getElementById('doubelorder')
-    function doubelNameTwo(){
-        let index =  Math.floor(Math.random() * orderList.length)
-        let index1 =  Math.floor(Math.random() * orderList.length)
-        if(index==index1){
-            index1 = Math.floor(Math.random() * orderList.length)
+    let index1 = null
+    let index2 = null
+    function doubelNameTwo() {
+        let index1 = Math.floor(Math.random() * orderList.length)
+        let index2 = Math.floor(Math.random() * orderList.length)
+        if (index1 == index2) {
+            index2 = Math.floor(Math.random() * orderList.length)
         }
-        orderName.textContent = `${orderList[index].name} ${orderList[index1].name} ` 
+        orderName.textContent = `${orderList[index1].name} ${orderList[index2].name} `
     }
     let time1 = null
+    let isScrol1 = false 
     doubelorder.addEventListener('click', function () {
-           time1 = setInterval(doubelNameTwo, 100)
-           setTimeout(() => {
-               clearInterval(time1)
-       }, 3000)
-})
+        console.log(11111);
+        if (isScrol1) {
+            clearInterval(time1)
+            doubelorder.textContent = '双人点名'
+        } else {
+            time1 = setInterval(doubelNameTwo, 100)
+            doubelorder.textContent = '暂停'
+        }
+        isScrol1 = !isScrol1
+    })
 
-//男生
-let nanList = []
-let nan = document.getElementById('nan')
-orderList.forEach(function(item){
-    if(item.sex=='男'){
-        nanList.push(item)
-    }
-})
-function nanOrder() {
-        let index = Math.floor(Math.random() * nanList.length)
+
+
+
+
+
+
+    //男生
+    let nanList = []
+    let nan = document.getElementById('nan')
+    function nanorder() {
+        let index = Math.floor(Math.random() * nvList.length)
         orderName.textContent = nanList[index].name
     }
-    let time2 = null
+    orderList.forEach(function (item) {
+        if (item.sex == '男') {
+            nanList.push(item)
+        }
+    })
+
+    let time3 = null
     nan.addEventListener('click', function () {
-           time2 = setInterval(nanOrder, 100)
-           setTimeout(() => {
-               clearInterval(time2)
-       }, 3000)
-})
+        if (isScrol) {
+            clearInterval(time3)
+            nan.textContent = '男生点名'
+        } else {
+            time3 = setInterval(nanorder, 100)
+            nan.textContent = '暂停'
+        }
+        isScrol = !isScrol
+    })
+
+
+
+
+
     //女生
-let nv = document.getElementById('nv')
-let nvList = []
-orderList.forEach(function(item){
-    if(item.sex=='女'){
-        nvList.push(item)
-    }
-})
-function nvorder() {
+    let nv = document.getElementById('nv')
+    let nvList = []
+    orderList.forEach(function (item) {
+        if (item.sex == '女') {
+            nvList.push(item)
+        }
+    })
+    function nvorder() {
         let index = Math.floor(Math.random() * nvList.length)
         orderName.textContent = nvList[index].name
     }
-    let time3 = null
     nv.addEventListener('click', function () {
-           time3 = setInterval(nvorder, 100)
-           setTimeout(() => {
-               clearInterval(time3)
-       }, 3000)
-})
+        if (isScrol) {
+            clearInterval(timer)
+            nv.textContent = '女生点名'
+        } else {
+            timer = setInterval(nvorder, 100)
+            nv.textContent = '暂停'
+        }
+        isScrol = !isScrol
+    })
+
+
+
 </script>
 
 </html>

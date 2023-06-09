@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div>名单：</div>
+        <ol id="nameList">
+            <li>小明</li>
+            <li>小红</li>
+            <li>小刚</li>
+            <li>小美</li>
+        </ol>
+        <div>已点名：</div>
+        <ol id="selectedList"></ol>
+        <button onclick="pickName()">点名</button>
+    </div>
+</body>
+<script>
+    let names = ['小明', '小红', '小刚', '小美'] // 名单
+    let selectedNames = [] // 已点名
+    let nameList = document.getElementById('nameList') // 名单ol元素
+    let selectedList = document.getElementById('selectedList') // 已点名ol元素
+
+    // 点名函数
+    function pickName() {
+        if (names.length === 0) { // 如果名单为空，重新开始点名
+            names = selectedNames // 所有名字重新放到名单里
+            selectedNames = [] // 清空已点名
+            nameList.innerHTML = generateNamesHTML(names) // 生成名单html
+            selectedList.innerHTML = '' // 清空已点名html
+        } else {
+            const index = Math.floor(Math.random() * names.length) // 随机选中一个名字
+            const name = names[index] // 获取名字
+            names.splice(index, 1) // 从名单里移除该名字
+            selectedNames.push(name) // 将该名字添加到已点名
+            nameList.innerHTML = generateNamesHTML(names) // 重新生成名单html
+            selectedList.innerHTML = generateNamesHTML(selectedNames) // 重新生成已点名html
+        }
+    }
+
+    // 生成名单或已点名的html
+    function generateNamesHTML(names) {
+        let html = ''
+        for (let name of names) {
+            html += `<li>${name}</li>`
+        }
+        return html
+    }
+
+    // 初始化界面
+    nameList.innerHTML = generateNamesHTML(names) // 生成名单html
+    selectedList.innerHTML = generateNamesHTML(selectedNames) // 生成已点名html
+</script>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    set是实列化出来的,可以对数组进行去重
+    let s = new Set()
+    let s2 = new Set([1,2,3,45,6,4,2,1])
+    s2.add(8)
+    s2.delete(45)
+    s2.clear()//清空
+    s2.size//长度
+    将set转化成真正的数组用Array.from(s2)
+</script>
+</html>
